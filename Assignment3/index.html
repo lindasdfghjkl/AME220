@@ -1,0 +1,30 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<script src='https://code.jquery.com/jquery-3.1.1.min.js'></script>
+
+	<script>
+		function applyProp(){
+			var style = {};
+			style[document.getElementById('prop').value] = document.getElementById('pval').value;
+			$('#target').css(style);
+		}
+	</script>
+
+	<style>
+		#target{
+			width: 500px;
+			height: 500px;
+		}
+	</style>
+</head>
+
+<body>
+	<input id='prop' placeholder='CSS property'>:
+	<input id='pval' placeholder='CSS value'>
+	<br>
+	<button onclick='applyProp()'>Apply</button>
+	<div id='target'> </div>
+</body>
+</html>
