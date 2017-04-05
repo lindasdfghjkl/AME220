@@ -1,0 +1,199 @@
+<!doctype html>
+<html>
+<head>
+	<meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width, maximum-scale=1.0">
+
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+	<link href='//fonts.googleapis.com/css?family=Alike' rel='stylesheet'>
+	<link href='//fonts.googleapis.com/css?family=Assistant' rel='stylesheet'>
+
+
+	<style>
+		@media (min-width: @screen-sm-min){
+			.col-xs-12{
+				min-width: 100%;
+				width: 100%;
+				left: 0px;
+				right: 100%;
+			}
+
+			#header .row{
+				height: 200px;
+			}
+		}
+
+		@media (min-width: @screen-md-min){
+			#backButton{
+				display: none;
+			}
+		}
+
+		#backButton{
+			float: right;
+		}
+
+		#header{
+			background-color: #25a4c4;
+			color: white;
+			font-family: Alike;
+			text-align: center;
+			padding-bottom: 10px;
+		}
+
+		#list{
+			background-color: rgb(240, 240, 240);
+		    font-family: Assistant;
+		    color: white;
+		    padding-top: 20px;
+		    padding-left: 30px;
+		}
+
+		#list a{
+			text-decoration: none;
+			color: black;
+		    font-family: Alike;
+		    font-size: 130%;
+		}
+
+		#list a.active{
+			font-weight: 900;
+			color: #25a4c4;
+			font-size: 160%;
+		}
+
+		.mouse #list a:hover{
+			color: #32C8DB;
+		}
+
+		.touch #list a:active{
+			color: #32C8DB;
+		}
+		
+		#details{
+			background: white;
+		    font-family: Assistant;
+		    color: black;
+		    padding-top: 15px;
+		}
+
+		p.summary{
+			color: black;
+			line-height: 150%;
+			font-size: 100%;
+			margin-right: 5%;
+		}
+
+		p.info{
+			color: black;
+			line-height: 50%;
+			font-size: 100%;
+		}
+
+		#list img.active{
+			background: #25a4c4;
+		}
+
+	</style>
+
+	<script src='asyncReq.js'></script>
+
+	<script src='https://code.jquery.com/jquery-3.1.1.min.js'></script>
+
+	<script>
+	    var isTouch = false;
+	    function start(){
+			var ua = navigator.userAgent;
+			if(ua.indexOf("iPhone") >= 0 || ua.indexOf("iPad") >= 0 || ua.indexOf("Android") >= 0){
+				isTouch = true;
+			}
+			if(isTouch){
+				$("body").addClass("touch");
+			}
+			else{
+				$("body").addClass("mouse");
+			}
+		}
+
+		var itunesData = [];
+		var filename = "./itunes.json";
+		var callback = function(res) {
+			var data = JSON.parse(res);
+			itunesData = data.feed.entry;
+			console.log(itunesData);
+
+			var markup = "";
+			for (var i = 0; i < itunesData.length; i++) {
+
+				//thumbnail
+				markup += "<a href='javascript:itemSelected(" + i + ")'><img class='img-thumbnail' src='" + itunesData[i]["im:image"]["0"].label + "'></a>"; 
+
+				//title
+				markup += "<a style='padding-left: 15px' href='javascript:itemSelected(" + i + ")'>" + itunesData[i]["im:name"].label + "</a>";
+
+				//artist
+				markup+= "<p style='color: black; font-size: 110%; padding-left: 60px; margin-top: -20px'>" + itunesData[i]["im:artist"].label + "</p>";
+			}
+			document.getElementById('list').innerHTML = markup;
+		}
+
+		function itemSelected(index) {
+			var markup = "";
+
+			if($(window).innerWidth() <= 768){
+				markup+= "<button id='backButton' class='btn btn-info btn-lg' onclick='goBack()'>Back</button>"; 
+			}
+
+			//image
+			markup += '<img style="height: 230px" src="' + itunesData[index]["im:image"]["2"].label + '">'; 
+
+			//title
+			markup += "<h1 style='font-family: Alike'>" + itunesData[index]["im:name"].label + "</h1>";
+
+			//artist
+			markup += "<h3 style='line-height: 200%; margin-top: -20px; font-weight: normal'>" + itunesData[index]["im:artist"].label + "</h3>"; 
+
+			//info
+			markup += "<p class='info'><b>Category:</b> " + itunesData[index].category.attributes.label  + "</p>" +
+				"<p class='info'><b>Release Date:</b> " + itunesData[index]["im:releaseDate"].attributes.label + "</p>" + 
+				"<p class='info'><b>Publisher:</b> " + itunesData[index]["im:publisher"].label + "</p>"; 
+
+			//summary
+			markup += "<p class='summary'>" + itunesData[index].summary.label + "</p>";
+
+			document.getElementById('details').innerHTML = markup;
+			
+			//indicate item selected
+			$("#list a").removeClass('active');
+			$("#list a:nth-of-type(" + (index+1)*2 + "), #list a:nth-of-type(" + (index*2 + 1) + ")").addClass('active');
+
+			//small screen
+		    if($(window).innerWidth() <= 768){
+		        $("#list, #header").addClass("hidden");
+		        $("#details").removeClass("hidden");
+		     }
+		}
+
+		function goBack(){
+			$("#list, #header").removeClass("hidden");
+			$("#details").addClass("hidden");
+			//$("#list a").removeClass('active');
+		}
+
+		loadFile(filename, callback);
+	</script>
+</head>
+
+<body onload='start()'>
+	<div id='header' class='col-xs-12'><h1>iTunes Top 100 Books</h1></div>
+	<div id='list' class='col-xs-12 col-md-4'> </div>
+	<div id='details' class='col-xs-12 col-md-8'></div>
+</body>
+</html>
