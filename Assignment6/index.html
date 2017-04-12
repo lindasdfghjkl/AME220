@@ -69,18 +69,26 @@
 	</script>
 
 	<style>
-
 		body {
 			background-color: white;
 		}
 
-		html {
+		#theClockWrapper {
 		    overflow: scroll;
 		    overflow-x: hidden;
 		}
 
-		::-webkit-scrollbar {
+		#theClockWrapper::-webkit-scrollbar {
 		    width: 0px;  
+		}
+
+		#tzList::-webkit-scrollbar {
+		    width: 13px; 
+		    background-color: rgba(255, 255, 255, 0.35); 
+		}
+
+		#tzList::-webkit-scrollbar-thumb {
+		    background-color: rgba(93, 193, 226, 0.9); 
 		}
 
 		select option:hover{
@@ -269,7 +277,10 @@
 			option {
 				text-align: center;
 				-vendor-animation-delay: 3s;
+			}
 
+			#tzList::-webkit-scrollbar {
+			    width: 0px;  
 			}
 		}
 
@@ -307,5 +318,6 @@
 	</div>
 	
 	<select size="50" id='tzList' onchange='loadClock()'> </select>
+
 </body>
 </html>
