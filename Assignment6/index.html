@@ -1,0 +1,300 @@
+<!doctype html>
+<html>
+<head	
+	<meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width, maximum-scale=1.0">
+
+	<script src='https://code.jquery.com/jquery-3.2.0.min.js'> </script>
+
+	<script src="moment.js"></script>
+	<script>moment().format();</script>
+	<script src="moment-timezone-with-data.js"></script> 
+
+	<script>
+	    var isTouch = false;
+
+	    function start(){
+	    	tzDropdown();
+	        renderTime(); 
+
+			var ua = navigator.userAgent;
+			if(ua.indexOf("iPhone") >= 0 || ua.indexOf("iPad") >= 0 || ua.indexOf("Android") >= 0){
+				isTouch = true;
+			}
+			if(isTouch){
+				$("body").addClass("touch");
+			} else{
+				$("body").addClass("mouse");
+			}
+	    }
+
+	    function tzDropdown() {
+	    	var markup = "";
+	    	for (i = 0; i < moment.tz.names().length; i++) {
+		    	markup += "<option value='" + moment.tz.names()[i] + "'>" + moment.tz.names()[i]+ "</option>";
+			}
+	    	document.getElementById("tzList").innerHTML = markup;
+	    }
+
+	    function renderTime() {
+	    	var timestamp = new Date().getTime();
+	    	var timezone = document.getElementById("tzList").value;
+	    	var h = moment.tz(timestamp, timezone).format("H");
+	    	console.log(h);
+	    	var m = moment.tz(timestamp, timezone).format("m");
+	    	var s = moment.tz(timestamp, timezone).format("s");
+
+			var ha = (h*30) + (m/2) - 90;
+			var ma = m * 6 - 90;
+			var sa = s * 6 - 90;
+
+			document.getElementById("hour").style.transform = 'rotateZ('+ ha +'deg)';
+			document.getElementById("min").style.transform = 'rotateZ('+ ma +'deg)';
+			document.getElementById("sec").style.transform = 'rotateZ('+ sa +'deg)';
+
+
+			if (h < 12) { //day
+				$(".clockDial").css("border-color", "orange");
+				$(".clockDial").css("background", "rgba(255, 255, 255, .55)");
+				$("#theClockWrapper").css("background", "#ffe9b5");
+				$(".numSlot").css("color", "black");
+				$("#hour").css("background", "black");
+				$("#min").css("background", "black");
+				$("#sec").css("background", "orange");
+			} else { //night
+				$(".clockDial").css("background", "rgba(0, 0, 0, .75)");
+				$(".clockDial").css("border-color", "orange");
+				$("#theClockWrapper").css("background", "#0a151c");
+				$(".numSlot").css("color", "white");
+				$("#hour").css("background", "white");
+				$("#min").css("background", "white");
+				$("#sec").css("background", "orange");
+				$("#circle").css("background", "orange");
+			}
+	    }
+	</script>
+
+	<style>
+		#tzList {
+			width: 25%;
+			height: 100%;
+			position: absolute;
+			top: 0px;
+			left: 0px;
+			font-size: 120%;
+			background: black;
+			color: gray;
+			border: none;
+		}
+
+		#theClockWrapper {
+			width: 75%;
+			height: 100%;
+			position: absolute;
+			top: 0%;
+			left: 25%;
+			border: none;
+			overflow-x: hidden;
+		}
+
+		@keyframes rotate {
+		  100% {
+		    transform: rotateZ(360deg);
+		  }
+		}
+
+		#hour{
+			position: absolute;
+			animation: rotate 43200s infinite linear;
+			height: 10px;
+			width: 200px;
+			margin-left: 50%;
+			margin-top: 50%;
+			background: black;
+		}
+
+		#min{
+			position: absolute;
+			animation: rotate 3600s infinite linear;
+			height: 5px;
+			width: 280px;
+			margin-left: 50%;
+			margin-top: 50%;
+			background: black;
+		}
+
+		#sec{
+			position: absolute;
+		    animation: rotate 60s infinite linear;
+			height: 1px;
+			width: 299px;
+			margin-left: 50%;
+			margin-top: 50%;
+			background: red;
+		}
+
+		.needle{
+			transform-origin: 0px 0px;
+		}
+
+		#circle {
+			position: absolute;
+			background: black;
+			width: 28px;
+			height: 28px;
+			border-radius: 14px;
+			margin-left: calc(50% - 14px);
+			margin-top: calc(50% - 14px);
+		}
+
+		.clockDial{
+			margin: auto;
+			height: 600px;
+			width: 600px;
+			border: 10px solid black;
+			border-radius: 300px;
+
+		 	display: block;
+	 	    position: absolute;
+		    left: 50%;
+		    top: 50%;
+		    transform: translate(-50%, -50%);
+		    background: white;
+		}
+
+		.numSlot{
+			 width: 295px;
+			 text-align: right;
+			 transform-origin: 0px 0px;
+			 position: absolute;
+			 font-size: 60px;
+			 line-height: 0px;
+			 font-family: Helvetica;
+			 color: black;
+		}
+
+		#n1{
+			transform: translate(300px,300px) rotate(-60deg);
+			transform: translate(160px, 70px);
+		}
+		#n2{
+			transform: translate(300px,300px) rotate(-30deg);
+			transform: translate(260px, 175px);
+		}
+		#n3{
+			transform: translate(300px,300px) rotate(0deg);
+			transform: translate(298px, 305px);
+		}
+		#n4{
+			transform: translate(300px,300px) rotate(30deg);
+			transform: translate(255px, 440px);
+		}
+		#n5{
+			transform: translate(300px,300px) rotate(60deg);
+			transform: translate(160px, 530px);
+		}
+		#n6{
+			transform: translate(300px,300px) rotate(90deg);
+			transform: translate(25px, 570px);
+		}
+		#n7{
+			transform: translate(300px,300px) rotate(120deg);
+			transform: translate(-110px, 530px);
+		}
+		#n8{
+			transform: translate(300px,300px) rotate(150deg);
+			transform: translate(-210px, 440px);
+		}
+		#n9{
+			transform: translate(300px,300px) rotate(180deg);
+			transform: translate(-254px, 305px);
+		}
+		#n10{
+			transform: translate(300px,300px) rotate(-150deg);
+			transform: translate(-195px, 175px);
+		}
+		#n11{
+			transform: translate(300px,300px) rotate(-120deg);
+			transform: translate(-95px, 70px);
+		}
+		#n12{
+			transform: translate(300px,300px) rotate(-90deg);
+			transform: translate(40px, 37px);
+		}
+
+		html {
+		    overflow: scroll;
+		    overflow-x: hidden;
+		}
+
+		::-webkit-scrollbar {
+		    width: 0px;  
+		}
+
+		select option:hover{
+			background: #5dc1e2;
+			color: white;
+		}
+
+		@media (max-width: 768px) {
+			#tzList {
+				position: absolute;
+				top: 30%;
+				left: 0px;
+				width: 100%;
+				height: 70%;
+				font-size: 100%;
+			}
+
+			#theClockWrapper {
+				position: absolute;
+				width: 100%;
+				height: 30%;
+				top: 0px;
+				left: 0px;
+				zoom: 30%;	
+			}
+
+			#sec {
+				height: 3px;
+			}
+		}
+
+		@media (min-width: 769px) and (max-width: 1170px) {
+			#theClockWrapper {
+				zoom: 90%;
+			}
+		}
+	</style>
+</head>
+
+<body onload='start()'>
+	<select size="50" id='tzList' onchange='renderTime()'> </select>
+
+	<div id='theClockWrapper' class='clock'>
+	  <div class='clockDial'>
+		<!--<div style="position: absolute; padding-left: 50%; height: 100%; background: rgba(0, 0, 0, .5);"> </div> -->
+
+	    <div class='numSlot' id='n1'>1</div>
+	    <div class='numSlot' id='n2'>2</div>
+	    <div class='numSlot' id='n3'>3</div>
+	    <div class='numSlot' id='n4'>4</div>
+	    <div class='numSlot' id='n5'>5</div>
+	    <div class='numSlot' id='n6'>6</div>
+	    <div class='numSlot' id='n7'>7</div>
+	    <div class='numSlot' id='n8'>8</div>
+	    <div class='numSlot' id='n9'>9</div>
+	    <div class='numSlot' id='n10'>10</div>
+	    <div class='numSlot' id='n11'>11</div>
+	    <div class='numSlot' id='n12'>12</div>
+	  
+	    <div class='needle' id='hour'></div>
+	    <div class='needle' id='min'></div>
+	    <div class='needle' id='sec'></div>
+	    <div id='circle'> </div>
+
+	  	<!--<div style="position: absolute; padding-top: 50%; width: 100%; background: rgba(0, 0, 0, .5);"> </div> -->
+
+	  </div>
+	</div>
+</body>
+</html>
