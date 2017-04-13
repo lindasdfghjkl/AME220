@@ -11,27 +11,59 @@
 
 	<script>
 	    function start(){
-	    	tzDropdown();
-	        renderTime(); 
-	        $("option").addClass("animated bounceInLeft")
+	    	var markup = localStorage.getItem('saved');
+	    	document.getElementById("tzList").innerHTML = markup;
+
+	    	if ($("select#tzList option").length == 0) {
+	    		$("#del").hide();
+	    		initTime();
+	    	} else {
+	    		$("#del").show();
+	    		loadClock();
+	    	}
 	    }
 
-	    function tzDropdown() {
-	    	var markup = "";
-	    	for (i = 0; i < moment.tz.names().length; i++) {
-		    	markup += "<option value='" + moment.tz.names()[i] + "'>" + moment.tz.names()[i].replace(/_/g, " ") + "</option>";
-			}
-	    	document.getElementById("tzList").innerHTML = markup;
-	    }
+	    function initTime() {
+	    	var h = new Date().getHours();
+	    	var m = new Date().getMinutes();
+	    	var s = new Date().getSeconds();
+
+			var ha = (h*30) + (m/2) - 90;
+			var ma = m * 6 - 90;
+			var sa = s * 6 - 90;
+
+			document.getElementById("hour").style.transform = 'rotateZ('+ ha +'deg)';
+			document.getElementById("min").style.transform = 'rotateZ('+ ma +'deg)';
+			document.getElementById("sec").style.transform = 'rotateZ('+ sa +'deg)';
+
+			if (h < 12) { //day
+				$("#theClockWrapper").css("background", "#ffe9b5");
+				$(".clockDial").css("border-color", "orange");
+				$(".clockDial").css("background", "rgba(255, 255, 255, .55)");
+				$(".numSlot").css("color", "black");
+				$("#hour").css("background", "black");
+				$("#min").css("background", "black");
+				$("#sec").css("background", "orange");
+			} else { //night
+				$("#theClockWrapper").css("background", "#011a21");
+				$(".clockDial").css("background", "rgba(0, 0, 0, .55)");
+				$(".clockDial").css("border-color", "orange");
+				$(".numSlot").css("color", "white");
+				$("#hour").css("background", "white");
+				$("#min").css("background", "white");
+				$("#sec").css("background", "orange");
+				$("#circle").css("background", "orange");
+		    }
+		}
 
 	    function loadClock() {
-	    	setTimeout(renderTime, 1000);
-	    	$("#theClockWrapper").addClass("animated fadeOut");
+	    	setTimeout(renderTime, 0);
+	    	//$("#theClockWrapper").addClass("animated fadeOut");
 	    }
 
 	    function renderTime() {
-	    	$("#theClockWrapper").removeClass("animated fadeOut");
-	    	$("#theClockWrapper").delay("100").addClass("animated fadeIn");
+	    	//$("#theClockWrapper").removeClass("animated fadeOut");
+	    	//$("#theClockWrapper").delay("200").addClass("animated fadeIn");
 
 	    	var timestamp = new Date().getTime();
 	    	var timezone = document.getElementById("tzList").value;
@@ -57,7 +89,7 @@
 				$("#sec").css("background", "orange");
 			} else { //night
 				$("#theClockWrapper").css("background", "#011a21");
-				$(".clockDial").css("background", "rgba(0, 0, 0, .7)");
+				$(".clockDial").css("background", "rgba(0, 0, 0, .55)");
 				$(".clockDial").css("border-color", "orange");
 				$(".numSlot").css("color", "white");
 				$("#hour").css("background", "white");
@@ -66,11 +98,134 @@
 				$("#circle").css("background", "orange");
 			}
 	    }
+
+	    function deleteTZ() {
+	    	$("#tzList option:selected").remove();
+	    	loadClock();
+	    	console.log($("select#tzList option").length);
+	    	if ($("select#tzList option").length == 0) {
+	    		$("#del").hide();
+	    		initTime();
+	    	}
+
+	    	var markup = document.getElementById("tzList").innerHTML;
+	    	localStorage.setItem('saved', markup);
+	    }
+
+	    function addDropdown() {
+	    	$("#add").addClass("active");
+	        $('#addList').show().css("opacity", "0").css("height", "500%");
+	    	$("#addList").animate({"opacity": "1", "height": "1200%"}, 1200);
+
+	    	var markup = "";
+	    	for (i = 0; i < moment.tz.names().length; i++) {
+		    	markup += "<option value='" + moment.tz.names()[i] + "'>" + moment.tz.names()[i].replace(/_/g, " ") + "</option>";
+			}
+			document.getElementById("addList").innerHTML = markup;
+
+			$(document).click(function(e) {
+			    e.stopPropagation();
+			    var container = $("#editListWrapper");
+			    if (container.has(e.target).length === 0) {
+			        $('#addList').hide();
+			    	$("#add").removeClass("active");
+			    }
+			})
+	    }
+
+	    function addTZ() {
+	    	$("#addList").animate({"opacity": "0", "height": "500%"}, 900);
+	    	if (document.getElementById("addList").style.height <= "600%") {
+	    		$("#addList").hide();
+	    	}
+	    	$("#add").removeClass("active");
+    		$("#del").show();
+
+	    	var timezone = document.getElementById("addList").value;
+	    	$("#tzList").append("<option value='" + timezone + "' selected>" + timezone.replace(/_/g, " ") + "</option>");
+	    	$("#tzList option:selected").addClass("animated slideInLeft");
+	    	loadClock();
+
+	    	var markup = document.getElementById("tzList").innerHTML;
+	    	localStorage.setItem('saved', markup);
+	    }
+
 	</script>
 
 	<style>
-		body {
-			background-color: white;
+		#add .active {
+			background: #5dc1e2; 
+		}
+
+		#add:hover {
+			background: #5dc1e2; 
+		}
+
+		#del:hover {
+			background-color: orange;
+			color: white;
+		}
+
+		::selection {
+			background: #5dc1e2;
+		}
+
+		#editListWrapper {
+			position: absolute;
+			top: 0px;
+			left: 0px;
+			width: 25%;
+			height: 40px;
+			background: black;
+			border-bottom: 1px solid orange;
+		}
+
+		#addList {
+			position: absolute;
+			top: 40px;
+			left: 0px;
+			width: 100%;
+			height: 1200%;
+			background-color: rgb(20, 20, 20);
+			color: gray;	
+			border-top-color: orange;	
+			border-left: none;
+			padding-top: 5px;
+			display: none;
+		}
+
+		#addList option {
+			padding-left: 30px;
+		}
+
+		#addList::-webkit-scrollbar {
+		    width: 13px; 
+		    background-color: rgba(255, 255, 255, 0.1); 
+		}
+
+		#addList::-webkit-scrollbar-thumb {
+		    background-color: rgba(93, 193, 226, 0.9); 
+		}
+
+		#add {
+			padding: 10px 10px;
+			float: left;
+			background: black;
+			border: none;
+		    color: white;
+		    height: 40px;
+		    font-weight: bolder;
+		}
+
+		#del {
+			padding: 10px 10px;
+			float: right;
+			background: black;
+			border: none;
+		    color: gray;
+		    height: 40px;
+		    display: none;
+		    font-weight: bolder;
 		}
 
 		#theClockWrapper {
@@ -94,24 +249,29 @@
 		select option:hover{
 			background: #5dc1e2;
 			color: white;
-			font-size: 120%;
+			/*font-size: 120%;*/
 		}
 
-		option {
+		#tzList option {
 			padding-left: 15px;
+			padding-top: 20px;
+			padding-bottom: 20px;
+			border-bottom: 1px solid #5dc1e2;
 		}
 
 		#tzList {
 			width: 25%;
-			height: 100%;
+			height: calc(100% - 40px);
 			position: absolute;
-			top: 0px;
+			top: 40px;
 			left: 0px;
-			font-size: 110%;
+			font-size: 120%;
 			background: black;
 			color: gray;
 			border: none;
 			padding-top: 10px;
+
+			-vendor-animation-duration: .1s;
 		}
 
 		#theClockWrapper {
@@ -123,7 +283,7 @@
 			border: none;
 			overflow-x: hidden;
 
-			-vendor-animation-duration: 2s;
+			-vendor-animation-duration: .5s;
 		}
 
 		@keyframes rotate {
@@ -252,35 +412,49 @@
 		}
 
 		@media (max-width: 768px) {
+			#editListWrapper {
+				position: absolute;
+				width: 100%;
+			}
+
 			#tzList {
 				position: absolute;
-				top: 30%;
-				left: 0px;
 				width: 100%;
-				height: 70%;
-				font-size: 110%;
+				height: calc(60% - 28px);
+				top: calc(40% + 28px);
+				left: 0px;
+				font-size: 100%;
+				border-bottom-color: black;
+			}
+
+			#addList {
+				height: 1200%;
+				padding-left: 0;
+			}
+
+			#addList option {
+				padding-left: 10px;
+			}
+
+			#addList option:hover{
+				font-size: 130%;
 			}
 
 			#theClockWrapper {
 				position: absolute;
-				width: 100%;
-				height: 30%;
-				top: 0px;
+				top: 128px;
 				left: 0px;
-				zoom: 30%;	
+				width: 100%;
+				height: calc(40% - 40px);
+				zoom: 32%;	
 			}
 
 			#sec {
 				height: 3px;
 			}
 
-			option {
-				text-align: center;
-				-vendor-animation-delay: 3s;
-			}
-
 			#tzList::-webkit-scrollbar {
-			    width: 0px;  
+			    width: 0px;
 			}
 		}
 
@@ -317,7 +491,12 @@
 		</div>
 	</div>
 	
-	<select size="50" id='tzList' onchange='loadClock()'> </select>
+	<select size="50" id='tzList' onchange='loadClock()'> </select>	
 
+	<div id="editListWrapper"> 	
+		<button id='add' onclick="addDropdown()"> Add Timezone </button>
+		<button id='del' onclick='deleteTZ()'> Remove </button>	
+		<select id='addList' size="50" onchange='addTZ()'> </select> 
+	</div>
 </body>
 </html>
