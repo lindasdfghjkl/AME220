@@ -10,6 +10,8 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
 
 	<script>
+		var isTouch = false;
+
 	    function start(){
 	    	var markup = localStorage.getItem('saved');
 	    	document.getElementById("tzList").innerHTML = markup;
@@ -21,6 +23,14 @@
 	    		$("#del").show();
 	    		loadClock();
 	    	}
+
+	      var ua = navigator.userAgent;
+	      if(ua.indexOf("iPhone") >= 0 || ua.indexOf("iPad") >= 0 || ua.indexOf("Android") >= 0){
+	        isTouch = true;
+	      }
+	      if(isTouch){
+	        $("body").addClass("touch");
+	      }
 	    }
 
 	    function initTime() {
@@ -102,6 +112,7 @@
 	    function deleteTZ() {
 	    	$("#tzList option:selected").remove();
 	    	loadClock();
+
 	    	console.log($("select#tzList option").length);
 	    	if ($("select#tzList option").length == 0) {
 	    		$("#del").hide();
@@ -113,6 +124,7 @@
 	    }
 
 	    function addDropdown() {
+    		$("#del").hide();
 	    	$("#add").addClass("active");
 	        $('#addList').show().css("opacity", "0").css("height", "500%");
 	    	$("#addList").animate({"opacity": "1", "height": "1200%"}, 1200);
@@ -139,12 +151,12 @@
 	    		$("#addList").hide();
 	    	}
 	    	$("#add").removeClass("active");
-    		$("#del").show();
 
 	    	var timezone = document.getElementById("addList").value;
 	    	$("#tzList").append("<option value='" + timezone + "' selected>" + timezone.replace(/_/g, " ") + "</option>");
 	    	$("#tzList option:selected").addClass("animated slideInLeft");
 	    	loadClock();
+    		$("#del").show();
 
 	    	var markup = document.getElementById("tzList").innerHTML;
 	    	localStorage.setItem('saved', markup);
@@ -153,17 +165,14 @@
 	</script>
 
 	<style>
-		#add .active {
-			background: #5dc1e2; 
+		.touch #add, .touch #add:hover {
+			background: black;
+			color: #5dc1e2;
 		}
 
-		#add:hover {
-			background: #5dc1e2; 
-		}
-
-		#del:hover {
-			background-color: orange;
-			color: white;
+		.touch #del, .touch #del:hover {
+			background: black;
+			color: orange;
 		}
 
 		::selection {
@@ -215,6 +224,15 @@
 		    color: white;
 		    height: 40px;
 		    font-weight: bolder;
+		    vertical-align: middle;
+		}
+
+		#add .active {
+			background: #5dc1e2; 
+		}
+
+		#add:hover {
+			background: #5dc1e2; 
 		}
 
 		#del {
@@ -226,6 +244,12 @@
 		    height: 40px;
 		    display: none;
 		    font-weight: bolder;
+		    vertical-align: middle;
+		}
+
+		#del:hover {
+			background-color: orange;
+			color: white;
 		}
 
 		#theClockWrapper {
@@ -249,7 +273,6 @@
 		select option:hover{
 			background: #5dc1e2;
 			color: white;
-			/*font-size: 120%;*/
 		}
 
 		#tzList option {
@@ -270,7 +293,6 @@
 			color: gray;
 			border: none;
 			padding-top: 10px;
-
 			-vendor-animation-duration: .1s;
 		}
 
@@ -282,7 +304,6 @@
 			left: 25%;
 			border: none;
 			overflow-x: hidden;
-
 			-vendor-animation-duration: .5s;
 		}
 
@@ -496,7 +517,7 @@
 	<div id="editListWrapper"> 	
 		<button id='add' onclick="addDropdown()"> Add Timezone </button>
 		<button id='del' onclick='deleteTZ()'> Remove </button>	
-		<select id='addList' size="50" onchange='addTZ()'> </select> 
+		<select id='addList' size="50" onchange='addTZ()'> </select>
 	</div>
 </body>
 </html>
