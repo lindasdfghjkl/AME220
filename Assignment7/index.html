@@ -1,96 +1,331 @@
 <html>
 <head>
-<title>
-  Image Resizer
-</title>
-<style>
-  #imagePreview{
-      display: block;
+  <title>Icon Resizer</title>
+
+  <meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width, initial-scale=1">
+
+  <style>
+    #uploadWrapper {
+      position: absolute;
+      top: 0px;
+      left: 0px;
+      right: 100%;
+      bottom: 15%;
+      height: 15%;
+      width: 100%;
+      background: #1ca1dd;
+    }
+
+    #iconsWrapper {
+      position: absolute;
+      height: 100%;
+      left: 0%;
+      right: 100%;
+      width: 100%;
+      top: 15%;
+      height: 100%;
+    }
+
+    button.accordion {
+      background-color: #eee;
+      color: #444;
+      cursor: pointer;
+      padding: 15px;
+      width: 100%;
+      border: none;
+      text-align: left;
+      outline: none;
+      font-size: 24px;
+      transition: 0.4s;
+    }
+
+    button.accordion.active, button.accordion:hover {
+        background-color: #333;
+        color: white;
+        width: 100%;
+    }
+
+    button.accordion:after {
+      content: '+';
+      font-size: 24px;
+      color: #777;
+      float: right;
+      margin-left: 5px;
+    }
+
+    button.accordion.active:after {
+        content: "-";
+        font-size: 24px;
+    }
+
+    div.panel {
+        background-color: rgba(255, 255, 255, .9);
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.2s ease-out;
+        width: 10%;
+        font-family: Arial, Helvetica, sans-serif;
+        margin-top: 58px;
+        font-size: 120%;
+    }
+
+    #smBtn, #sm {
+      position: absolute;
+      left: 0%;
+      right: 15%;
+      width: 15%;
+    }
+    #sm {
+      padding-left: 20px;
+      width: calc(15% - 20px);
+    }
+
+    #mdBtn, #md {
+      position: absolute;
+      left: 15%;
+      right: 35%;
+      width: 20%;
+      border-left: 1px solid gray;
+    }
+    #md {
+      padding-left: 20px;
+      width: calc(20% - 20px);
+      border-color: rgba(0, 0, 0, .1);
+    }
+
+    #lgBtn, #lg {
+      position: absolute;
+      left: 35%;
+      right: 100%;
+      width: 65%;
+      border-left: 1px solid gray;
+    }
+    #lg {
+      padding-left: 20px;
+      width: calc(65% - 20px);
+      border-color: rgba(0, 0, 0, .1);
+    }
+
+    .fileUpload {
+      position: relative;
+      overflow: hidden;
+      margin: 10px;
+    }
+    .fileUpload input.upload {
+        position: absolute;
+        top: 0;
+        right: 0;
+        margin: 0;
+        padding: 0;
+        font-size: 20px;
+        cursor: pointer;
+        opacity: 0;
+        filter: alpha(opacity=0);
   }
-</style>
-<script
-  src="https://code.jquery.com/jquery-3.1.1.min.js"
-      integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
-    crossorigin="anonymous"></script>
 
-<script>
-var imageUploaded = function()
-{
-   var file = $('#uploadImage').get(0);
-   console.log(file.files[0].type);
-   if(file.files[0].type.split("/")[0].toLowerCase() != "image"){
-        alert("Incorrect file type -- Please ensure you are uploading an image file.");
-        return;
-   }
-   if ( file.files && file.files[0] && file.files[0].type.split("/")[0].toLowerCase() === "image") {
-        var FR = new FileReader();
-        FR.onload = function(e) {
-            var data = e.target.result;
-            console.log(data);
+    #uploadBtn {
+      font-family: arial, Helvetica, sans-serif;
+      height: 40px;
+      width: 100px;
+      font-size: 30px;
+      background: #105eb7;
+      border-radius: 7px;
+      color: white;
+      padding: 10px;
+      float: right;
+      bottom: 0%;
+      cursor: pointer;
+    }
 
-            var sizeArr = [29, 58, 87, 40, 80, 120, 180, 76, 152, 512, 1024];
-            for (i = 0; i < sizeArr.length; i++){
-              var canvas[i] = document.createElement("canvas");
-              var img[i] = document.createElement("img");
-              img[i].onload= function(){
-                renderIcon(canvas[i], img[i], sizeArr[i], sizeArr[i]);  
-              }
-              img[i].src = data;
-            }
+    #uploadBtn:hover {
+      background: #60cfe0;
+    }
 
-           /* var canvas = document.createElement("canvas");
-            var img = document.createElement("img");
-            img.onload= function(){
-              renderIcon(canvas, img, 128, 128);  
-            }
-            img.src = data;
+    #title{
+      position: absolute;
+      font-family: arial, Helvetica, sans-serif;
+      color: white;
+      font-size: 500%;
+      margin-left: 20px;
+      bottom: 15%;
+      font-weight: bold;
+    }
 
-            var canvas1 = document.createElement("canvas");
-            var img1 = document.createElement("img");
-            img1.onload= function(){
-              renderIcon(canvas1, img1, 256, 256);  
-            }
-            img1.src = data;*/
-        };  
-        FR.readAsDataURL( file.files[0] );
-   }
-}
+    img{
+      background: rgba(0, 0, 0, .1);
+    }
 
-function renderIcon(canvas, img, h, w)
-{
-     var width = img.width;
-     var height = img.height;
-     var w2 = w;
-     var h2 = h;
-                 if (width > height) {
-                     if (width > w) {
-                        w2 = w;
-                        h2 = height * w / width;
-                    }
-                 } else {
-                     if (height > h) {
-                        h2 = h;
-                        w2 = width * h / height;
-                    }
+    @media (max-width: 500px) {
+      #smBtn, #sm {
+        left: 0%;
+        right: 100%;
+        width: 100%;
+        top: 0px;
+      }
+
+      #mdBtn, #md {
+        left: 0%;
+        right: 100%;
+        width: 100%;
+        top: 60px;
+      }
+
+      #lgBtn, #lg {
+        left: 0%;
+        right: 100%;
+        width: 100%;
+        top: 120px;
+      }
+
+      #title {
+        font-size: 250%;
+      }
+
+      #uploadBtn{
+        zoom: 90%;
+      }
+    }
+  </style>
+
+  <script
+    src="https://code.jquery.com/jquery-3.1.1.min.js"
+    integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+    crossorigin="anonymous">
+  </script>
+
+  <script>
+    var sizeArr = [29, 40, 58, 76, 80, 87, 120, 152, 180, 512, 1024];
+
+    var imageUploaded = function()
+    {
+     var file = $('#uploadImage').get(0);
+     if(file.files[0].type.split("/")[0].toLowerCase() != "image"){
+          alert("Incorrect file type -- Please ensure you are uploading an image file.");
+          return;
+     }
+
+     if (file.files && file.files[0] && file.files[0].type.split("/")[0].toLowerCase() === "image") {
+          var FR = new FileReader();
+          FR.onload = function(e) {
+              var data = e.target.result;
+
+              var canvasArr = [];
+              var imgArr = [];
+
+              for (i = 0; i < sizeArr.length; i++) {
+                canvasArr[i] = document.createElement("canvas");
+                imgArr[i] = document.createElement("img");
+
+                canvasArr.push(canvasArr[i]);
+                imgArr.push(imgArr[i]);
+
+                imgArr[0].onload = function() {
+                  for (j = 0; j < sizeArr.length; j++) {
+                    renderIcon(canvasArr[0], imgArr[0], sizeArr[j], sizeArr[j]);
+                  }
                 }
-                canvas.width = w;
-                canvas.height = h;
-                var ctx = canvas.getContext("2d");
-                ctx.drawImage(img, 0, 0, w2, h2);
-                var base64St = canvas.toDataURL("image/png");
-                var mu = "";
-                mu += h + "px x " + w + "px</br>"
-                mu += "<img height=" + h + " width=" + w + " src=" + base64St + "><hr>";
+                imgArr[0].src = data;
+              }
+          };  
+        FR.readAsDataURL(file.files[0]);
+     }
 
-                document.getElementById("imagePreviewWrapper").innerHTML += mu;
-}
-</script>
+      if ($("#smBtn").hasClass("active") == false) {
+        $("#smBtn").addClass("active");
+        var smPanel = document.getElementById("sm");
+          if (smPanel.style.maxHeight){
+            smPanel.style.maxHeight = null;
+          } else {
+            $("#sm").animate({"max-height": "100%"}, 1000);
+          } 
+      } else {
+            $("#sm").animate({"max-height": "100%"}, 1000);
+      } 
+    }
 
+
+    function renderIcon(canvas, img, h, w)
+    {
+       var width = img.width;
+       var height = img.height;
+       var w2 = w;
+       var h2 = h;
+                   if (width > height) {
+                       if (width > w) {
+                          w2 = w;
+                          h2 = height * w / width;
+                      }
+                   } else {
+                       if (height > h) {
+                          h2 = h;
+                          w2 = width * h / height;
+                      }
+                  }
+                  canvas.width = w;
+                  canvas.height = h;
+                  var ctx = canvas.getContext("2d");
+                  ctx.drawImage(img, 0, 0, w2, h2);
+                  var base64St = canvas.toDataURL("image/png");
+
+                  if (w <= 76) {
+                    var mu = "";
+                    mu += "<br>" + h + "px × " + w + "px<br>"
+                    mu += "<img height=" + h + " width=" + w + " src=" + base64St + "><br><p></p>";
+                    document.getElementById("sm").innerHTML += mu;
+                  } else if (w > 76 && w <= 180) {
+                    var mu = "";
+                    mu += "<br>" + h + "px × " + w + "px<br>"
+                    mu += "<img height=" + h + " width=" + w + " src=" + base64St + "><br><p></p>";
+                    document.getElementById("md").innerHTML += mu;
+                  } else {
+                    var mu = "";
+                    mu += "<br>" + h + "px × " + w + "px<br>"
+                    mu += "<img height=" + h + " width=" + w + " src=" + base64St + "><br><p></p>";
+                    document.getElementById("lg").innerHTML += mu;
+                  }
+    }
+  </script>
 </head>
 
-<body>
-  <input type="file" name="uploadImage" id="uploadImage" onchange="imageUploaded()">
-  <div id="imagePreviewWrapper"> </div>
+<body bgcolor="#ddd">
+
+  <div id="uploadWrapper"> 
+   <div id="title"> Icon Resizer </div>
+    <div class="fileUpload" id="uploadBtn">
+      <span id="uploadLabel">Upload</span>
+      <input type="file" class="upload" id="uploadImage" onchange="imageUploaded()">
+    </div>
+  </div>
+
+  <div id="iconsWrapper"> 
+    <button class="accordion" id="smBtn">Small</button>
+    <div class="panel" id="sm"> </div>
+
+    <button class="accordion" id="mdBtn">Medium</button>
+    <div class="panel" id="md"> </div>
+
+    <button class="accordion" id="lgBtn">Large</button>
+    <div class="panel" id="lg"> </div>
+  </div>
+
+  <script>
+    var acc = document.getElementsByClassName("accordion");
+    for (var i = 0; i < acc.length; i++) {
+      acc[i].onclick = function() {
+        this.classList.toggle("active");
+        var panel = this.nextElementSibling;
+        if (panel.style.maxHeight){
+          panel.style.maxHeight = null;
+        } else {
+          panel.style.maxHeight = panel.scrollHeight + "px";
+        } 
+      }
+    }
+
+    document.getElementById("uploadBtn").onchange = function () {
+      document.getElementById("uploadFile").value = this.value;
+    }
+  </script>
 </body>
 
 
