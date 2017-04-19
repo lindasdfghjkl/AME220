@@ -3,6 +3,8 @@
   <title>Icon Resizer</title>
 
   <meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width, initial-scale=1">
+  <link href="https://fonts.googleapis.com/css?family=Karla" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Abel" rel="stylesheet">
 
   <style>
     #uploadWrapper {
@@ -27,6 +29,7 @@
     }
 
     button.accordion {
+      font-family: abel;
       background-color: #eee;
       color: #444;
       cursor: pointer;
@@ -64,26 +67,26 @@
         overflow: hidden;
         transition: max-height 0.2s ease-out;
         width: 10%;
-        font-family: Arial, Helvetica, sans-serif;
-        margin-top: 58px;
-        font-size: 120%;
+        font-family: Arial, helvetica, sans-serif;
+        margin-top: 61px;
+        font-size: 110%;
     }
 
     #smBtn, #sm {
       position: absolute;
       left: 0%;
-      right: 15%;
-      width: 15%;
+      right: 10%;
+      width: 10%;
     }
     #sm {
       padding-left: 20px;
-      width: calc(15% - 20px);
+      width: calc(10% - 20px);
     }
 
     #mdBtn, #md {
       position: absolute;
-      left: 15%;
-      right: 35%;
+      left: 10%;
+      right: 30%;
       width: 20%;
       border-left: 1px solid gray;
     }
@@ -95,14 +98,14 @@
 
     #lgBtn, #lg {
       position: absolute;
-      left: 35%;
+      left: 30%;
       right: 100%;
-      width: 65%;
+      width: 70%;
       border-left: 1px solid gray;
     }
     #lg {
       padding-left: 20px;
-      width: calc(65% - 20px);
+      width: calc(70% - 20px);
       border-color: rgba(0, 0, 0, .1);
     }
 
@@ -135,6 +138,7 @@
       float: right;
       bottom: 0%;
       cursor: pointer;
+      top: 10px;
     }
 
     #uploadBtn:hover {
@@ -143,11 +147,11 @@
 
     #title{
       position: absolute;
-      font-family: arial, Helvetica, sans-serif;
+      font-family: karla;
       color: white;
       font-size: 500%;
       margin-left: 20px;
-      bottom: 15%;
+      bottom: 10%;
       font-weight: bold;
     }
 
@@ -269,17 +273,17 @@
 
                   if (w <= 76) {
                     var mu = "";
-                    mu += "<br>" + h + "px × " + w + "px<br>"
+                    mu += "<br>" + h + " × " + w + " px<br>"
                     mu += "<img height=" + h + " width=" + w + " src=" + base64St + "><br><p></p>";
                     document.getElementById("sm").innerHTML += mu;
                   } else if (w > 76 && w <= 180) {
                     var mu = "";
-                    mu += "<br>" + h + "px × " + w + "px<br>"
+                    mu += "<br>" + h + " × " + w + " px<br>"
                     mu += "<img height=" + h + " width=" + w + " src=" + base64St + "><br><p></p>";
                     document.getElementById("md").innerHTML += mu;
                   } else {
                     var mu = "";
-                    mu += "<br>" + h + "px × " + w + "px<br>"
+                    mu += "<br>" + h + " × " + w + " px<br>"
                     mu += "<img height=" + h + " width=" + w + " src=" + base64St + "><br><p></p>";
                     document.getElementById("lg").innerHTML += mu;
                   }
@@ -290,7 +294,7 @@
 <body bgcolor="#ddd">
 
   <div id="uploadWrapper"> 
-   <div id="title"> Icon Resizer </div>
+   <div id="title"> ICON RESIZER </div>
     <div class="fileUpload" id="uploadBtn">
       <span id="uploadLabel">Upload</span>
       <input type="file" class="upload" id="uploadImage" onchange="imageUploaded()">
