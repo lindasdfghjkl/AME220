@@ -28,9 +28,19 @@
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 
+    <style>
+    .header {
+    background: url("https://wallpaperbrowse.com/media/images/html-color-codes-color-tutorials-hero-00e10b1f.jpg") no-repeat center center scroll;
+
+    }
+    </style>
+
 </head>
 
 <body>
+
+<div id="imageWrapper">
+</div>
 
     <!-- Navigation -->
     <a id="menu-toggle" href="#" class="btn btn-dark btn-lg toggle"><i class="fa fa-bars"></i></a>
@@ -47,10 +57,13 @@
                 <a href="#education" onclick=$("#menu-close").click();>Education</a>
             </li>
             <li>
-                <a href="#services" onclick=$("#menu-close").click();>Services</a>
+                <a href="#skills" onclick=$("#menu-close").click();>Skills</a>
             </li>
             <li>
-                <a href="#portfolio" onclick=$("#menu-close").click();>Portfolio</a>
+                <a href="#portfolio" onclick=$("#menu-close").click();>Projects</a>
+            </li>
+            <li>
+                <a href="#achievements" onclick=$("#menu-close").click();>Achievements</a>
             </li>
             <li>
                 <a href="#contact" onclick=$("#menu-close").click();>Contact</a>
@@ -69,15 +82,16 @@
     </header>
 
     <!-- About -->
-    <section id="education" class="education">
+    <section id="education" class="about" style="background: #fffef4">
         <div class="container">
             <div class="row">
-                <div class="col-lg-12">
+                <div class="col-lg-6 col-lg-offset-3 text-center">
                     <h2 style="text-align: center">Education</h2>
+                    <i style="text-align: center; font-size: 700%; color: #c4002a" class="fa fa-graduation-cap" aria-hidden="true"></i>
                     <hr class="small">
 
-                    <ul style="padding-left: 100px">
-                      <li><b>Arizona State University (2015—) | Tempe, AZ</b></li>
+                    <ul style="text-align: left">
+                      <li style="font-size: 130%"><b>Arizona State University (2015—) | Tempe, AZ</b></li>
                         <ul>
                         <li>Major: Digital Culture (Art), Bachelor of Arts (BA)</li>
                         <li>Minor: Business</li>
@@ -85,15 +99,17 @@
                         <li>Current GPA: 4.0</li>
                         </ul>
                         <br>
-                        <li><b>Mountain Pointe High School (2011-2015) | Phoenix, AZ</b></li>
+                      <li style="font-size: 130%"><b>Mountain Pointe High School (2011-2015) | Phoenix, AZ</b></li>
                         <ul>
                         <li>High School Diploma</li>
                         <li> Graduation Date: May 2015</li>
                         <li> GPA: 3.9</li>
                         </ul>
                     </ul>
+                </div>
 
-                    <img style="width: 40%; margin-left: 600px; margin-top: -200px" src="https://static.vecteezy.com/system/resources/previews/000/056/102/non_2x/graduation-cap-vector.jpg">
+               <!-- <div class="col-lg-10">
+                     <img style="width: 35%; margin-left: 60%; margin-top: -10%" src="http://pics.clipartpng.com/midle/Graduation_Cap_with_Diploma_PNG_Clipart-375.png">-->
                 </div>
             </div>
             <!-- /.row -->
@@ -103,7 +119,7 @@
 
     <!-- Services -->
     <!-- The circle icons use Font Awesome's stacked icon classes. For more information, visit http://fontawesome.io/examples/ -->
-    <section id="services" class="services bg-primary">
+    <section id="skills" class="services bg-primary" style="background: #ff922d">
         <div class="container">
             <div class="row text-center">
                 <div class="col-lg-10 col-lg-offset-1">
@@ -114,48 +130,48 @@
                             <div class="service-item">
                                 <span class="fa-stack fa-4x">
                                 <i class="fa fa-circle fa-stack-2x"></i>
-                                <i class="fa fa-cloud fa-stack-1x text-primary"></i>
+                                <i class="fa fa-crop fa-stack-1x text-primary" style="color: #ff922d"></i>
                             </span>
                                 <h4>
                                     <strong>Graphic Design</strong>
                                 </h4>
-                                <p>I am proficient in Adobe Photoshop, Illustrator, and InDesign. I am experienced with print and digital mediums.</p>
+                                <p>Adobe Photoshop, Illustrator, and InDesign. Experience with print and digital mediums.</p>
                             </div>
                         </div>
                         <div class="col-md-3 col-sm-6">
                             <div class="service-item">
                                 <span class="fa-stack fa-4x">
                                 <i class="fa fa-circle fa-stack-2x"></i>
-                                <i class="fa fa-compass fa-stack-1x text-primary"></i>
+                                <i class="fa fa-paint-brush fa-stack-1x text-primary" style="color: #ff922d"></i>
                             </span>
                                 <h4>
                                     <strong>Fine Arts</strong>
                                 </h4>
-                                <p>I specialize in acrylic painting; however, I have worked with pencil, colored pencil, pastels, and more.</p>
+                                <p>Acrylic paint, pencils, colored pencils, pastels, and more.</p>
                             </div>
                         </div>
                         <div class="col-md-3 col-sm-6">
                             <div class="service-item">
                                 <span class="fa-stack fa-4x">
                                 <i class="fa fa-circle fa-stack-2x"></i>
-                                <i class="fa fa-flask fa-stack-1x text-primary"></i>
+                                <i class="fa fa-desktop fa-stack-1x text-primary" style="color: #ff922d"></i>
                             </span>
                                 <h4>
                                     <strong>Web Design/Development</strong>
                                 </h4>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                                <p>HTML, CSS, javaScript, jQuery, etc. Front and back-end development.</p>
                             </div>
                         </div>
                         <div class="col-md-3 col-sm-6">
                             <div class="service-item">
                                 <span class="fa-stack fa-4x">
                                 <i class="fa fa-circle fa-stack-2x"></i>
-                                <i class="fa fa-shield fa-stack-1x text-primary"></i>
+                                <i class="fa fa-video-camera fa-stack-1x text-primary" style="color: #ff922d"></i>
                             </span>
                                 <h4>
                                     <strong>Video Editing</strong>
                                 </h4>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                                <p>Sony Vegas Pro, Adobe Premiere, After Effects, etc.</p>
                             </div>
                         </div>
                     </div>
@@ -168,61 +184,69 @@
         <!-- /.container -->
     </section>
 
-    <!-- Callout -->
-    <aside class="callout">
-        <div class="text-vertical-center">
-            <h1>Vertically Centered Text</h1>
-        </div>
-    </aside>
-
     <!-- Portfolio -->
-    <section id="portfolio" class="portfolio">
+    <section id="portfolio" class="portfolio" style="background: rgba(0, 0, 0, 0.8)">
         <div class="container">
             <div class="row">
                 <div class="col-lg-10 col-lg-offset-1 text-center">
-                    <h2>Projects</h2>
+                    <h2 style="color: white">Projects</h2>
                     <hr class="small">
-                    <div class="row">
-                        <div class="col-md-6">
+                    <div class="row" style="color: white">
+                        <div class="col-md-4">
                             <div class="portfolio-item">
-                                <a href="#">
+                            <h4> Foxes (2015)</h4> <p> acrylic paint on canvas</p>
                                     <img class="img-portfolio img-responsive" src="http://68.media.tumblr.com/c43ba8b1a1abf0cbfdb93d7242013098/tumblr_nvtfxw7IHm1uiul99o3_540.jpg">
-                                </a>
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="portfolio-item">
-                                <a href="#">
+                            <h4> Lineart (2011)</h4> <p> digital illustration, Adobe Photoshop</p>
                                     <img class="img-portfolio img-responsive" src="http://68.media.tumblr.com/7ec62df103cd9459b9536cc63051f99b/tumblr_nvtdzxxHzX1uiul99o1_540.png">
-                                </a>
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="portfolio-item">
-                                <a href="#">
+                            <h4> Spring Art Show Poster (2014)</h4> <p> promotional poster, Adobe Illustrator</p>                          
                                     <img class="img-portfolio img-responsive" src="http://68.media.tumblr.com/51c71ae37c57f9fafd4ab5983ca0ad1c/tumblr_nvtedpwdKL1uiul99o2_540.jpg">
-                                </a>
+
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="portfolio-item">
-                                <a href="#">
+                            <h4> Luke Hemmings (2014)</h4> <p> acrylic paint on canvas</p>                                                   
                                     <img class="img-portfolio img-responsive" src="http://68.media.tumblr.com/d61b095e867910409885cffb8e078aa1/tumblr_nvtf6pmcbP1uiul99o1_540.jpg">
-                                </a>
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="portfolio-item">
-                                <a href="#">
+                            <h4> Still Life (2013)</h4> <p> digital illustration, Adobe Illustrator</p>                          
                                     <img class="img-portfolio img-responsive" src="http://68.media.tumblr.com/b68e1c0408a0a85c2d3f232a34b1435d/tumblr_nvte60mO1q1uiul99o2_540.jpg">
-                                </a>
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="portfolio-item">
-                                <a href="#">
-                                    <img class="img-portfolio img-responsive" src="http://68.media.tumblr.com/934eefd7e6d16720060a0911a456baf6/tumblr_nvtdqx8yc71uiul99o4_r1_540.jpg">
-                                </a>
+                            <h4> Kurt Vonnegut Poster (2015)</h4> <p> classroom poster, Adobe Illustrator</p>                          
+                                    <img class="img-portfolio img-responsive" src="http://68.media.tumblr.com/f9ca441cd1d56cc54a1711ea67dfe429/tumblr_nvtg4ovpXd1uiul99o1_1280.jpg"> 
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="portfolio-item">
+                            <h4> 5SOS Concert Poster (2016)</h4> <p> promotional poster, Adobe Illustrator</p>                          
+                                    <img class="img-portfolio img-responsive" src="http://68.media.tumblr.com/883f303c8274a4b89a8b23f0939a8985/tumblr_op9iducmI71uiul99o1_1280.jpg"> 
+                            </div>
+                        </div>
+
+                         <div class="col-md-4">
+                            <div class="portfolio-item">
+                            <h4> Pride's Peak T-Shirt (2013)</h4> <p> T-shirt design, Adobe Illustrator</p>                                            
+                                    <img class="img-portfolio img-responsive" src="http://68.media.tumblr.com/43ae29fe29668af08ff9e7da2d34459d/tumblr_nvtet7Goz91uiul99o1_1280.jpg"> 
+                            </div>
+                        </div>                        
+                        <div class="col-md-4">
+                            <div class="portfolio-item">
+                            <h4> Key Club T-Shirt (2014)</h4> <p> T-shirt design, Adobe Illustrator</p>                                                                   
+                                    <img class="img-portfolio img-responsive" src="http://68.media.tumblr.com/934eefd7e6d16720060a0911a456baf6/tumblr_nvtdqx8yc71uiul99o4_r1_540.jpg"> 
                             </div>
                         </div>
                     </div>
@@ -236,56 +260,51 @@
         <!-- /.container -->
     </section>
 
-    <!-- Call to Action -->
-    <aside class="call-to-action bg-primary">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-center">
-                    <h3>The buttons below are impossible to resist.</h3>
-                    <a href="#" class="btn btn-lg btn-light">Click Me!</a>
-                    <a href="#" class="btn btn-lg btn-dark">Look at Me!</a>
-                </div>
-            </div>
-        </div>
-    </aside>
-
-    <!-- Map -->
-    <section id="contact" class="map">
-        <iframe width="100%" height="100%" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=Twitter,+Inc.,+Market+Street,+San+Francisco,+CA&amp;aq=0&amp;oq=twitter&amp;sll=28.659344,-81.187888&amp;sspn=0.128789,0.264187&amp;ie=UTF8&amp;hq=Twitter,+Inc.,+Market+Street,+San+Francisco,+CA&amp;t=m&amp;z=15&amp;iwloc=A&amp;output=embed"></iframe>
-        <br />
-        <small>
-            <a href="https://maps.google.com/maps?f=q&amp;source=embed&amp;hl=en&amp;geocode=&amp;q=Twitter,+Inc.,+Market+Street,+San+Francisco,+CA&amp;aq=0&amp;oq=twitter&amp;sll=28.659344,-81.187888&amp;sspn=0.128789,0.264187&amp;ie=UTF8&amp;hq=Twitter,+Inc.,+Market+Street,+San+Francisco,+CA&amp;t=m&amp;z=15&amp;iwloc=A"></a>
-        </small>
-    </section>
-
-    <!-- Footer -->
-    <footer>
+    <!-- Awards -->
+    <section id="achievements" class="about" style="background: #ffd43d">
         <div class="container">
             <div class="row">
                 <div class="col-lg-10 col-lg-offset-1 text-center">
+                    <h2 style="text-align: center">Achievements</h2>
+                    <i style="text-align: center; font-size: 700%; color: #e58500" class="fa fa-trophy" aria-hidden="true"></i>
+
+                    <hr class="small">
+
+                    <ul style="font-size: 150%; text-align: left">
+                      <li>Dean’s List Awards (Fall 2015, Spring 2016, and Fall 2016)</li>
+                      <li>ASU’s New American University Scholar - Provost’s Award (2015)</li>
+                      <li>Honorable Mention in Painting in the Congressional Art Competition (2015)</li>
+                      <li>Certificate of Completion for the Arizona Career and Technical Education Quality Commission’s Graphic/Web Design Program (2015) 
+                    </ul>
+                </div>
+
+            <!-- /.row -->
+        </div>
+        <!-- /.container -->
+    </section>
+
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-10 col-lg-offset-1 text-center">
+                    <h2 style="text-align: center">Contact</h2>
+                    <hr class="small">
+
                     <h4><strong>Linda Nguyen</strong>
                     </h4>
-                    <p>3481 Melrose Place
-                        <br>Beverly Hills, CA 90210</p>
                     <ul class="list-unstyled">
-                        <li><i class="fa fa-phone fa-fw"></i> (123) 456-7890</li>
-                        <li><i class="fa fa-envelope-o fa-fw"></i> <a href="mailto:name@example.com">name@example.com</a>
+                        <li><i class="fa fa-phone fa-fw"></i> (480) 735-9971</li>
+                        <li><i class="fa fa-envelope-o fa-fw"></i> <a href="linda.d.nguyen@asu.edu">linda.d.nguyen@asu.edu</a>
                         </li>
                     </ul>
+
                     <br>
-                    <ul class="list-inline">
-                        <li>
-                            <a href="#"><i class="fa fa-facebook fa-fw fa-3x"></i></a>
-                        </li>
-                        <li>
-                            <a href="#"><i class="fa fa-twitter fa-fw fa-3x"></i></a>
-                        </li>
-                        <li>
-                            <a href="#"><i class="fa fa-dribbble fa-fw fa-3x"></i></a>
-                        </li>
-                    </ul>
+                <iframe src="https://docs.google.com/a/asu.edu/forms/d/e/1FAIpQLSf9uEaLZ0NVYuJxGrzcL7Vtf7o2N2aIYeAHLiRqCq68grtZtQ/viewform?embedded=true" width="100%" height="350" frameborder="0" marginheight="0" marginwidth="0">Loading...</iframe>
+<br>
                     <hr class="small">
-                    <p class="text-muted">Copyright &copy; Your Website 2014</p>
+                    <p class="text-muted">Copyright &copy; Linda Nguyen 2017</p>
                 </div>
             </div>
         </div>
